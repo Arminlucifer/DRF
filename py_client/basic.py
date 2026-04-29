@@ -1,9 +1,12 @@
 import requests
 
-endpoint = "http://127.0.0.1:8000/api"
+endpoint = "http://localhost:8000/api/"
 
-response = requests.get(endpoint)
+response = requests.get(endpoint, params={'abc': 123}, json={
+                        'query': "Hello world"})
 
 print(response.text)
 print(response.status_code)
-print(response.json()['message'])
+
+
+
