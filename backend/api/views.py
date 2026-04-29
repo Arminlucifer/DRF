@@ -8,17 +8,26 @@ from django.forms.models import model_to_dict
 from products.serializers import ProductSerializer
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 def api_home(request):
+    # """"
+    # GET METHOD
+    # """"
+    # instance = Product.objects.last()
 
-    instance = Product.objects.last()
+    # data = {}
 
-    data = {}
+    # if instance:
+    #     #     data = model_to_dict(instance, fields=['title', 'content'])
+    #     # else:
+    #     #     pass
+    #     data = ProductSerializer(instance).data
+    # """""
+    # POST METHOD
+    # """
 
-    if instance:
-        #     data = model_to_dict(instance, fields=['title', 'content'])
-        # else:
-        #     pass
-        data = ProductSerializer(instance).data
-
-    return Response(data)
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        print(serializer.data)
+        return Response(serializer.data)
+    
