@@ -39,7 +39,13 @@ class ProductUpdateView(generics.UpdateAPIView):
             instance.content = instance.title
 
 
-# <--Function based views-->
+class ProductDeleteView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    # <--Function based views-->
+
+
 @api_view(["GET", "POST"])
 def product_alt_view(request, pk=None):
     if request.method == "GET":
