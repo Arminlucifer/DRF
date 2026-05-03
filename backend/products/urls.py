@@ -4,10 +4,10 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.ProductMixinView.as_view()),
-    path('<int:pk>/', views.ProductMixinView.as_view()),
-    path('<int:pk>/update/', views.ProductMixinView.as_view()),
-    path('<int:pk>/delete/', views.ProductMixinView.as_view()),
+    path('', views.ProductListCreateAPIview.as_view()),
+    path('<int:pk>/', views.ProductDetailAPIView.as_view()),
+    path('<int:pk>/update/', views.ProductUpdateView.as_view()),
+    path('<int:pk>/delete/', views.ProductDeleteView.as_view()),
 
 
 ]

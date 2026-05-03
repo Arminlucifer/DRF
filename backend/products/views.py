@@ -1,16 +1,18 @@
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, permissions, authentication
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from . models import Product
 from . serializers import ProductSerializer
-
+from . permissions import IsStaffEditorPermission
 # <--Class based views-->
 
 
 class ProductListCreateAPIview(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAdminUser ,IsStaffEditorPermission]
 
     def perform_create(self, serializer):
         print(serializer.validated_data)
@@ -42,6 +44,8 @@ class ProductUpdateView(generics.UpdateAPIView):
 class ProductDeleteView(generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+# <--Mixin-->
 
 
 class ProductMixinView(
@@ -76,8 +80,8 @@ class ProductMixinView(
     def put(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
 
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
     # <--Function based views-->
 
