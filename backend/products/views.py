@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view
 from . models import Product
 from . serializers import ProductSerializer
 
+# <--Class based views-->
+
 
 class ProductListCreateAPIview(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -26,14 +28,27 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
 
 
+class ProductUpdateView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def perform_update(self, serializer):
+
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title
+
+
+# <--Function based views-->
 @api_view(["GET", "POST"])
 def product_alt_view(request, pk=None):
     if request.method == "GET":
         if pk is not None:
+            # detail view
             obj = get_object_or_404(Product, pk=pk)
             data = ProductSerializer(obj).data
             return Response(data)
-
+        # list view
         queryset = Product.objects.all()
         data = ProductSerializer(queryset, many=True).data
         return Response(data)
