@@ -30,5 +30,6 @@ def api_home(request):
     if serializer.is_valid(raise_exception=True):
 
         print(serializer.data)
+        
 
         return Response(serializer.data)
