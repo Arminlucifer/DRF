@@ -9,7 +9,7 @@ from . serializers import ProductSerializer, ProductDetailSerializer
 
 
 class ProductListCreateAPIview(
-        StaffEditorPermissionMixin,
+
         generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
