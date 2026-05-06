@@ -35,7 +35,7 @@ class ProductDetailAPIView(
 
 class ProductUpdateView(
         StaffEditorPermissionMixin,
-        generics.UpdateAPIView):
+        generics.RetrieveUpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
