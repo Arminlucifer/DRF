@@ -1,6 +1,6 @@
 import requests
 
-endpoint = 'http://localhost:8000/api/products/6/update/'
+endpoint = 'http://127.0.0.1:8000/api/products/6/update/'
 
 
 data = {
