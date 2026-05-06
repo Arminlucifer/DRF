@@ -33,3 +33,15 @@ class ProductSerializer(serializers.ModelSerializer):
         if not hasattr(obj, 'id'):
             return None
         return obj.get_discount()
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = [
+            "title",
+            "content",
+            "price",
+            "sale_price"
+        ]

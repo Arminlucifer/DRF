@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from api.mixins import StaffEditorPermissionMixin
 from . models import Product
-from . serializers import ProductSerializer
+from . serializers import ProductSerializer, ProductDetailSerializer
 # <--Class based views-->
 
 
@@ -37,7 +37,7 @@ class ProductUpdateView(
         StaffEditorPermissionMixin,
         generics.RetrieveUpdateAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductDetailSerializer
 
     def perform_update(self, serializer):
 
