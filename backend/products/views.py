@@ -2,6 +2,7 @@ from rest_framework import generics, mixins
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+
 from api.mixins import StaffEditorPermissionMixin
 from . models import Product
 from . serializers import ProductSerializer, ProductDetailSerializer
