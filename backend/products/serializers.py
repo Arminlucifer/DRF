@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
+from rest_framework.validators import UniqueValidator
 
 from . validators import validate_title
 from . models import Product
@@ -12,11 +13,12 @@ class ProductSerializer(serializers.ModelSerializer):
         lookup_field='pk')
     edit_url = serializers.SerializerMethodField(read_only=True)
     title = serializers.CharField(validators=[validate_title])
+    owner = serializers.StringRelatedField()
 
     class Meta:
         model = Product
         fields = [
-            'user'
+            'owner',
             'url',
             'edit_url',
             "title",

@@ -10,8 +10,9 @@ from . serializers import ProductSerializer, ProductDetailSerializer
 
 
 class ProductListCreateAPIview(
+    generics.ListCreateAPIView,
 
-        generics.ListCreateAPIView):
+):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     allow_staff_view = False
@@ -24,7 +25,8 @@ class ProductListCreateAPIview(
         if content is None:
             content = title
 
-        serializer.save(content=content)
+        serializer.save(content=content,
+                        owner=self.request.user)
 
 
 class ProductDetailAPIView(
