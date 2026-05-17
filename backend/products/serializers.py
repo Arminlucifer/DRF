@@ -12,15 +12,11 @@ class ProductSerializer(
 
     user = UserPublicSerializer(source='owner', read_only=True)
 
-    my_discount = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='product-detail',
         lookup_field='pk')
     edit_url = serializers.SerializerMethodField(read_only=True)
     title = serializers.CharField(validators=[validate_title])
-
-    other_products = UserProductInlineSerializer(source='owner.product_set.all',
-                                                 many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -33,8 +29,8 @@ class ProductSerializer(
             "content",
             "price",
             "sale_price",
-            "my_discount",
-            'other_products',
+
+
 
         ]
 
