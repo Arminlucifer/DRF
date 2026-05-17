@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from api.serializers import UserPublicSerializer
+from api.serializers import UserPublicSerializer, UserProductInlineSerializer
 
 from . validators import validate_title
 from . models import Product
@@ -19,10 +19,14 @@ class ProductSerializer(
     edit_url = serializers.SerializerMethodField(read_only=True)
     title = serializers.CharField(validators=[validate_title])
 
+    other_products = UserProductInlineSerializer(source='owner.product_set.all',
+                                                 many=True, read_only=True)
+
     class Meta:
         model = Product
         fields = [
             'id',
+            'user',
             'url',
             'edit_url',
             "title",
@@ -30,7 +34,7 @@ class ProductSerializer(
             "price",
             "sale_price",
             "my_discount",
-            'user',
+            'other_products',
 
         ]
 

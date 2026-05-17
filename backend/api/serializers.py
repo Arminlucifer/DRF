@@ -14,10 +14,10 @@ class UserPublicSerializer(serializers.Serializer):
     username = serializers.CharField(read_only=True)
     id = serializers.IntegerField(read_only=True)
     email = serializers.CharField(read_only=True)
-    other_products = serializers.SerializerMethodField(read_only=True)
+    # other_products = serializers.SerializerMethodField(read_only=True)
 
-    def get_other_products(self, user):
+    # def get_other_products(self, user):
 
-        user_products_qs = user.product_set.all()[:5]
+    #     user_products_qs = user.product_set.all()[:5]
 
-        return UserProductInlineSerializer(user_products_qs, many=True, context=self.context).data
+    #     return UserProductInlineSerializer(user_products_qs, many=True, context=self.context).data
