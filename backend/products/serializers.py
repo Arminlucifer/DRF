@@ -1,31 +1,37 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from rest_framework.validators import UniqueValidator
+
+from api.serializers import UserPublicSerializer
 
 from . validators import validate_title
 from . models import Product
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(
+        serializers.ModelSerializer):
+
+    user = UserPublicSerializer(source='owner', read_only=True)
+
     my_discount = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='product-detail',
         lookup_field='pk')
     edit_url = serializers.SerializerMethodField(read_only=True)
     title = serializers.CharField(validators=[validate_title])
-    owner = serializers.StringRelatedField()
 
     class Meta:
         model = Product
         fields = [
-            'owner',
+
             'url',
             'edit_url',
             "title",
             "content",
             "price",
             "sale_price",
-            "my_discount"
+            "my_discount",
+            'user',
+
         ]
 
     def get_edit_url(self, obj):
