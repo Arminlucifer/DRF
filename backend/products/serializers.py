@@ -22,7 +22,7 @@ class ProductSerializer(
     class Meta:
         model = Product
         fields = [
-
+            'id',
             'url',
             'edit_url',
             "title",

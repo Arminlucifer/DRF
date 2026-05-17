@@ -14,6 +14,9 @@ class Product(models.Model):
                                 default=99.99
                                 )
 
+    class Meta:
+        ordering = ['-pk']
+
     @property
     def sale_price(self):
         return "%.2f" % (float(self.price) * 0.8)
