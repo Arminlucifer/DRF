@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
+class ProductManager(models.Manager):
+    def search(self, query, user=None):
+        return Product.objects.filter(public = True).filter(title__icontains=query)
+
 class Product(models.Model):
     owner = models.ForeignKey(
         User, default=1, null=True, on_delete=models.SET_NULL)
@@ -13,6 +17,7 @@ class Product(models.Model):
                                 decimal_places=2,
                                 default=99.99
                                 )
+    public = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-pk']
